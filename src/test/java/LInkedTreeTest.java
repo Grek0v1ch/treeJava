@@ -10,7 +10,12 @@ public class LInkedTreeTest {
         tree.add("node2", "node");
         tree.add("node3", "node");
         tree.add("node11", "node1");
-		String trueResult = "node\n\tnode1\n\t\tnode11\n\tnode2\n\tnode3\n";
+		String trueResult =
+				"node\n" +
+				"\tnode1\n" +
+				"\t\tnode11\n" +
+				"\tnode2\n" +
+				"\tnode3\n";
 		assertEquals(trueResult, tree.toString());
 	}
 }

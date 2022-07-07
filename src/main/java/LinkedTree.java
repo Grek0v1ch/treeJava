@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LinkedTree {
-	private class Node {
+	private static class Node {
 		private String name = null;
 		private List<Node> children = null;
 
@@ -30,15 +30,6 @@ public class LinkedTree {
 			add(child, name, parentName);
 	}
 
-	private void printTree(Node pos, int level) {
-		for (int i = 0; i < level; i++)
-			System.out.print("\t");
-		System.out.println(pos.name);
-		if (pos.children == null) return;
-		for (Node child : pos.children)
-			printTree(child, level + 1);
-	}
-
 	private String toString(Node pos, int level) {
 		StringBuilder answer = new StringBuilder();
 		for (int i = 0; i < level; i++)
@@ -58,10 +49,6 @@ public class LinkedTree {
 
 	public void add(String name, String parentName) {
 		add(root, name, parentName);
-	}
-
-	public void printTree() {
-		printTree(root, 0);
 	}
 
 	@Override
