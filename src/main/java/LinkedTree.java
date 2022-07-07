@@ -31,6 +31,7 @@ public class LinkedTree {
 	}
 
 	private String toString(Node pos, int level) {
+		if (pos == null) return "";
 		StringBuilder answer = new StringBuilder();
 		for (int i = 0; i < level; i++)
 			answer.append("\t");
