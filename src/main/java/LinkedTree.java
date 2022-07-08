@@ -25,9 +25,21 @@ public class LinkedTree {
 			if (children == null) children = new ArrayList<>();
 			children.add(new Node(name));
 		}
+
+		public String getName() {
+			return name;
+		}
+
+		public List<Node> getChildren() {
+			return children;
+		}
 	}
 
 	private Node root = null;
+
+	public Node getRoot() {
+		return root;
+	}
 
 	private void add(Node pos, String name, String parentName) {
 		if (pos.name.equals(parentName)) {
