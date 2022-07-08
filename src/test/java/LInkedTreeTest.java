@@ -80,7 +80,7 @@ public class LInkedTreeTest {
 		assertEquals(secondTree, tree.toString());
 	}
 
-	// Тестируем удаление несуществующего узла.
+	// Тестируем удаление несуществующего узла
 	@Test
 	void removeNode1() {
 		LinkedTree tree = new LinkedTree("node");
