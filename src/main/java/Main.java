@@ -5,6 +5,10 @@ public class Main {
         tree.add("node2", "node");
         tree.add("node3", "node");
         tree.add("node11", "node1");
-        System.out.println(tree.toString());
+        System.out.println(tree);
+        tree.remove("node1");
+        System.out.println(tree);
+        tree.add("node1", "node");
+        System.out.println(tree);
     }
 }

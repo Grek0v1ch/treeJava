@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LinkedTree {
 	private static class Node {
@@ -10,6 +11,14 @@ public class LinkedTree {
 
 		public Node(String name) {
 			this.name = name;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (this == o) return true;
+			if (o == null || getClass() != o.getClass()) return false;
+			Node node = (Node) o;
+			return Objects.equals(name, node.name);
 		}
 
 		public void add(String name) {
@@ -42,6 +51,17 @@ public class LinkedTree {
 		return answer.toString();
 	}
 
+	private void remove(Node pos, String name) {
+		if (pos.children == null) return;
+		for (Node child : pos.children)
+			if (child.name.equals(name)) {
+				pos.children.remove(child);
+				return;
+			}
+		for (Node child : pos.children)
+			remove(child, name);
+	}
+
 	public LinkedTree() {}
 
 	public LinkedTree(String name) {
@@ -50,6 +70,15 @@ public class LinkedTree {
 
 	public void add(String name, String parentName) {
 		add(root, name, parentName);
+	}
+
+	public void remove(String name) {
+		if (root == null) return;
+		if (root.name.equals(name)) {
+			root = null;
+			return;
+		}
+		remove(root, name);
 	}
 
 	@Override
