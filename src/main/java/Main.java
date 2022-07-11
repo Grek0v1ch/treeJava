@@ -6,6 +6,7 @@ public class Main {
         tree.add("node3", "node");
         tree.add("node11", "node1");
 
-
+        System.out.println(tree.printToHtml());
+        System.out.println(tree);
     }
 }

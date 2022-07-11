@@ -97,4 +97,20 @@ public class LinkedTree {
 	public String toString() {
 		return toString(root, 0);
 	}
+
+	private String toHtml(Node pos) {
+		if (pos == null) return "";
+		StringBuilder answer = new StringBuilder();
+		answer.append("<li>").append(pos.name);
+		if (pos.children == null) return answer.append("</li>").toString();
+		answer.append("<ul>");
+		for (Node child : pos.children)
+			answer.append(toHtml(child));
+		answer.append("</ul>");
+		return answer.append("</li>").toString();
+	}
+
+	public String printToHtml() {
+		return "<ul>" + toHtml(root) + "</ul>";
+	}
 }
