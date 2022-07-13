@@ -169,10 +169,43 @@ public class LInkedTreeTest {
 		LinkedTree tree = objectMapper.readValue(jsonString, LinkedTree.class);
 		String stringTree =
 				"node\n" +
+				"\tnode1\n" +
+				"\t\tnode11\n" +
+				"\tnode2\n" +
+				"\tnode3\n";
+		assertEquals(stringTree, tree.toString());
+	}
+
+	@Test
+	void edit() {
+		LinkedTree tree = new LinkedTree("node");
+		tree.add("node1", "node");
+		tree.add("node2", "node");
+		tree.add("node3", "node");
+		tree.add("node11", "node1");
+		tree.edit("node3", "node4");
+		String stringTree = "node\n" +
 						"\tnode1\n" +
 						"\t\tnode11\n" +
 						"\tnode2\n" +
-						"\tnode3\n";
+						"\tnode4\n";
+		assertEquals(stringTree, tree.toString());
+	}
+
+	@Test
+	void edit1() {
+		LinkedTree tree = new LinkedTree("node");
+		tree.add("node1", "node");
+		tree.add("node2", "node");
+		tree.add("node3", "node");
+		tree.add("node11", "node1");
+
+		tree.edit("fdsfsf", "node4");
+		String stringTree = "node\n" +
+				"\tnode1\n" +
+				"\t\tnode11\n" +
+				"\tnode2\n" +
+				"\tnode3\n";
 		assertEquals(stringTree, tree.toString());
 	}
 }

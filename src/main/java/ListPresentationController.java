@@ -41,7 +41,7 @@ public class ListPresentationController {
      * @return HTML-страница со списком.
      */
     @GET
-    @Path("/")
+    @Path("list")
     @Produces("text/html")
     public String getList() {
         String result =
@@ -54,7 +54,7 @@ public class ListPresentationController {
                 "    <ul>";
         for (int i = 0; i < list.size(); i++) {
             String listItem = list.get(i);
-            result += "<li>" + listItem + " <a href=\"edit/" + i + "\">Редактировать</a> </li>";
+            result += "<li>" + listItem + "<a href=\"edit/" + i + "\">Редактировать</a> </li>";
         }
         result += "    </ul>" +
                 "      <br/>" +
@@ -88,7 +88,7 @@ public class ListPresentationController {
      * @param itemId индекс элемента списка.
      * @return страничка для редактирования одного элемента.
      */
-    @GET
+    /** @GET
     @Path("/edit/{id}")
     @Produces("text/html")
     public String getEditPage(@PathParam("id") int itemId) {
@@ -109,14 +109,14 @@ public class ListPresentationController {
                 "  </body>" +
                 "</html>";
         return result;
-    }
+    } */
 
     /**
      * Редактирует элемент списка на основе полученных данных.
      * @param itemId индекс элемента списка.
      * @return перенаправление на основную страницу со списком.
      */
-    @POST
+    /** @POST
     @Path("/edit/{id}")
     @Produces("text/html")
     public Response editItem(@PathParam("id") int itemId, @FormParam("value") String itemValue) {
@@ -126,7 +126,7 @@ public class ListPresentationController {
         } catch (URISyntaxException e) {
             throw new IllegalStateException("Ошибка построения URI для перенаправления");
         }
-    }
+    } */
 
     /**
      * Пример вывода вложенного списка.
@@ -155,7 +155,7 @@ public class ListPresentationController {
     }
 
     @GET
-    @Path("nested_tree")
+    @Path("/")
     @Produces("text/html")
     public String getTree() {
         return "<html>" +
@@ -167,5 +167,57 @@ public class ListPresentationController {
                 tree.printToHtml() +
                 "  </body>" +
                 "</html>";
+    }
+
+    @GET
+    @Path("/edit/{name}")
+    @Produces("text/html")
+    public String getEditPage(@PathParam("name") String itemName) {
+        String result =
+                "<html>" +
+                        "  <head>" +
+                        "    <title>Редактирование дерева</title>" +
+                        "  </head>" +
+                        "  <body>" +
+                        "    <h1>Редактирование элемента дерева</h1>" +
+                        "    <form method=\"post\" action=\"/edit/edit_" + itemName + "\">" +
+                        "      <p>Значение</p>" +
+                        "      <input type=\"text\" name=\"newName\" newName=\"" + itemName +"\"/>" +
+                        "      <input type=\"submit\"/>" +
+                        "    </form>";
+        result +=
+                        "<form method =\"post\" action=\"/edit/add_" + itemName + "\">" +
+                        "  <p>Имя дочернего элемента</p>" +
+                        "  <input type=\"text\" name=\"addItemName\" addItemName=\"" + itemName +"\"/>" +
+                        "  <input type=\"submit\"/>" +
+                        "</form>";
+        result +=
+                        "  </body>" +
+                        "</html>";
+        return result;
+    }
+
+    @POST
+    @Path("/edit/edit_{name}")
+    @Produces("text/html")
+    public Response editItem(@PathParam("name") String itemName, @FormParam("newName") String newItemName) {
+        tree.edit(itemName, newItemName);
+        try {
+            return Response.seeOther(new URI("/")).build();
+        } catch (URISyntaxException e) {
+            throw new IllegalStateException("Ошибка построения URI для перенаправления");
+        }
+    }
+
+    @POST
+    @Path("/edit/add_{name}")
+    @Produces("text/html")
+    public Response addItem(@PathParam("name") String name, @FormParam("addItemName") String addItemName) {
+        tree.add(addItemName, name);
+        try {
+            return Response.seeOther(new URI("/")).build();
+        } catch (URISyntaxException e) {
+            throw new IllegalStateException("Ошибка построения URI для перенаправления");
+        }
     }
 }

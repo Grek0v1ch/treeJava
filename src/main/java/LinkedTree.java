@@ -101,7 +101,7 @@ public class LinkedTree {
 	private String toHtml(Node pos) {
 		if (pos == null) return "";
 		StringBuilder answer = new StringBuilder();
-		answer.append("<li>").append(pos.name);
+		answer.append("<li><a href=\"edit/").append(pos.name).append("\">").append(pos.name).append("</a>");
 		if (pos.children == null) return answer.append("</li>").toString();
 		answer.append("<ul>");
 		for (Node child : pos.children)
@@ -111,6 +111,24 @@ public class LinkedTree {
 	}
 
 	public String printToHtml() {
-		return "<ul>" + toHtml(root) + "</ul>";
+		return "<ul>" +
+				toHtml(root) +
+				"</ul>";
+	}
+
+	private void edit(Node pos, String name, String newName) {
+		if (pos == null) return;
+		if (pos.name.equals(name)) {
+			pos.name = newName;
+			return;
+		}
+		if (pos.children == null) return;
+		for (Node child : pos.children)
+			edit(child, name, newName);
+	}
+
+	public void edit(String name, String newName) {
+		if (name == null || newName == null) return;
+		edit(root, name, newName);
 	}
 }
